@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry >
+    <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title>
+        <dt>Url:
+        <dd><input type=text size=30 name=url>
+        <dt>Description:
+        <dd><textarea name=description rows=5 cols=40></textarea>
+        <dd><input type=submit value=ajouter>
+    </dl>
+    </form>
+    {% endif %}
+    <ul class=entries>
+    {% for entry in entries %}
+        <li> <h2><a href="{{ entry.url }}">{{ entry.title }}</a></h2>
+        {{ entry.description|safe }}
+        {% if session.logged_in %}
+            <form action="{{ url_for('delete_entry') }}" method=post class=add-entry>
+                <input type='hidden' name=id value={{ entry.id }}>
+                Le voeux à été exhaussé ? <input type=submit value=oui>
+            </form>
+        {% endif %}
+    {% else %}
+        <li><em>Pas d'idées pour le moment :-( 
+    {% endfor %}
+    </ul>
+{% endblock %}

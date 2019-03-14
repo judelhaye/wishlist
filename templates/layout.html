@@ -1,0 +1,30 @@
+<! doctype html>
+<html>
+<head>
+    <title>Julien Delhaye - wishlist</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <div class=page>
+        <h1>Ouichlist - Julien</h1>
+        <div class=metanav>
+            {% if not session.logged_in %}
+                <a href="{{ url_for('login') }}">login</a>
+            {% else %}
+                <a href="{{ url_for('logout') }}">logout</a>
+            {% endif %}
+        </div>
+        <em>Les liens, c'est juste pour donner une idée approximative de
+        ce que je veux, c'est pas obligatoire d'avoir exactement le même modèle.
+        <br/>
+        Sauf pour les pédales de basse.</em>
+        <hr />
+        {% for item in get_flashed_messages() %}
+            <div class=flash>{{ item }}</div>
+        {% endfor %}
+        {% block body %}
+        {% endblock %}
+    </div>
+</body>
+</html>
